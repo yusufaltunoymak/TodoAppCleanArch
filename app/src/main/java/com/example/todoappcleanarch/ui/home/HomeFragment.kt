@@ -9,10 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.todoappcleanarch.R
 import com.example.todoappcleanarch.databinding.FragmentHomeBinding
+import com.example.todoappcleanarch.model.ToDoModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ToDoClickListener {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel : HomeViewModel by viewModels()
@@ -21,6 +22,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        binding.toDoClickListener = this
         viewModel.toDoList.observe(viewLifecycleOwner) {
             Log.d("asdasd",it.toString())
         }
@@ -33,6 +37,14 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onToDoClick(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onToDoChecked(toDoModel: ToDoModel) {
+        TODO("Not yet implemented")
     }
 
 }

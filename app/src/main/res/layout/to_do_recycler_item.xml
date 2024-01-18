@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="ToDoModel"
+            type="com.example.todoappcleanarch.model.ToDoModel" />
+        <variable
+            name="ToDoClickListener"
+            type="com.example.todoappcleanarch.ui.home.ToDoClickListener" />
+
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> ToDoClickListener.onToDoClick(ToDoModel.id)}"
+        android:layout_margin="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/todoImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_circle"
+                setItemToDoPriorityTint="@{ToDoModel.priority}"
+                app:layout_constraintBottom_toBottomOf="@+id/todoTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/todoTitle"
+                tools:tint="@color/seed" />
+
+            <TextView
+                android:id="@+id/todoTitle"
+                style="@style/TextAppearance.Material3.TitleLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{ToDoModel.title}"
+                app:layout_constraintEnd_toStartOf="@+id/todoCheckBox"
+                app:layout_constraintStart_toEndOf="@+id/todoImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/toDoDesc"
+                style="@style/TextAppearance.Material3.BodyLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:text="@{ToDoModel.description}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/todoCheckBox"
+                app:layout_constraintStart_toStartOf="@+id/todoImageView"
+                app:layout_constraintTop_toBottomOf="@+id/todoTitle"
+                tools:text="@tools:sample/lorem/random" />
+
+            <CheckBox
+                android:id="@+id/todoCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:onClick="@{() -> ToDoClickListener.onToDoChecked(ToDoModel)}"
+                app:layout_constraintBottom_toBottomOf="@+id/toDoDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/todoTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</layout>

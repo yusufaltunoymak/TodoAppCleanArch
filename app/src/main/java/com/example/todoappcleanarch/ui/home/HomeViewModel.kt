@@ -2,7 +2,6 @@ package com.example.todoappcleanarch.ui.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoappcleanarch.data.ToDoRepository
