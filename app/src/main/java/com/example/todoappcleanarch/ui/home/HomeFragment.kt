@@ -1,12 +1,12 @@
 package com.example.todoappcleanarch.ui.home
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.todoappcleanarch.R
 import com.example.todoappcleanarch.databinding.FragmentHomeBinding
 import com.example.todoappcleanarch.model.ToDoModel
@@ -25,10 +25,9 @@ class HomeFragment : Fragment(), ToDoClickListener {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.toDoClickListener = this
-        viewModel.toDoList.observe(viewLifecycleOwner) {
-            Log.d("asdasd",it.toString())
-        }
+
         binding.fragmentHomeFab.setOnClickListener {
+            findNavController().navigate(R.id.newAndEditFragment)
             viewModel.insertToDo()
         }
         return binding.root
@@ -40,11 +39,12 @@ class HomeFragment : Fragment(), ToDoClickListener {
     }
 
     override fun onToDoClick(id: Int) {
-        TODO("Not yet implemented")
+        val action = HomeFragmentDirections.actionHomeFragmentToNewAndEditFragment(toDoId = id)
+        findNavController().navigate(action)
     }
 
     override fun onToDoChecked(toDoModel: ToDoModel) {
-        TODO("Not yet implemented")
+        viewModel.updateToDo(toDoModel)
     }
 
 }

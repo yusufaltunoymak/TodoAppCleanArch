@@ -13,6 +13,7 @@ class HomeListAdapter(private val toDoClickListener : ToDoClickListener) : ListA
         fun bind(toDoClickListener: ToDoClickListener,toDoModel: ToDoModel) {
             binding.toDoModel = toDoModel
             binding.executePendingBindings()
+            binding.toDoClickListener = toDoClickListener
         }
         companion object {
             fun from(parent : ViewGroup) : ViewHolder {

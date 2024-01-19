@@ -19,4 +19,11 @@ class HomeViewModel @Inject constructor(application : Application, private val r
             repository.localDataSource.insertToDo(ToDoModel(title = "title", description = "desc", priority = Priority.HIGH, isChecked = true))
         }
     }
+
+    fun updateToDo(toDoModel: ToDoModel) {
+        val updatedToDoModel = toDoModel.copy(isChecked = toDoModel.isChecked?.not())
+        viewModelScope.launch {
+            repository.localDataSource.updateToDo(updatedToDoModel)
+        }
+    }
 }
