@@ -13,25 +13,45 @@ import com.example.todoappcleanarch.ui.home.HomeListAdapter
 import com.example.todoappcleanarch.ui.home.ToDoClickListener
 
 @BindingAdapter("setItemToDoPriorityTint")
-fun setItemToDoPriorityTint(imageView : ImageView,priority: Priority?) {
+fun setItemToDoPriorityTint(imageView: ImageView, priority: Priority?) {
     val context = imageView.context
-    val color = when(priority) {
+    val color = when (priority) {
         Priority.HIGH -> R.color.priority_high
         Priority.MEDIUM -> R.color.md_theme_light_secondary
         else -> R.color.seed
     }
-    ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(ContextCompat.getColor(context,color)))
+    ImageViewCompat.setImageTintList(
+        imageView,
+        ColorStateList.valueOf(ContextCompat.getColor(context, color))
+    )
 }
-@BindingAdapter("toDoList","setOnClickListener")
-fun setHomeRecyclerViewAdapter(recyclerView: RecyclerView,list : List<ToDoModel>?,toDoClickListener: ToDoClickListener) {
+
+@BindingAdapter("toDoList", "setOnClickListener", "searchQuery", "searchToDoList")
+fun setHomeRecyclerViewAdapter(
+    recyclerView: RecyclerView,
+    list: List<ToDoModel>?,
+    toDoClickListener: ToDoClickListener,
+    searchQuery: String,
+    searchList: List<ToDoModel>?
+) {
     recyclerView.apply {
-        if(this.adapter == null) {
+        if (this.adapter == null) {
             adapter = HomeListAdapter(toDoClickListener).apply {
-                submitList(list)
+                submitList(
+                    if (searchQuery.isEmpty()) {
+                        list
+                    } else {
+                        searchList
+                    }
+                )
             }
-        }
-        else {
-            (this.adapter as HomeListAdapter).submitList(list)
+        } else {
+            (this.adapter as HomeListAdapter).submitList(
+                if (searchQuery.isEmpty()) {
+                list
+            } else {
+                searchList
+            })
         }
     }
 }
